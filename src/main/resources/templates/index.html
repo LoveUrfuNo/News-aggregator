@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Start</title>
+</head>
+<body>
+<h3 th:if="${addingResult} == 'added'" style="color:#00ff12">Сайт успешно добавлен</h3>
+<div th:if="${addingResult} == 'validation failed'">
+    <h3 style="color:#ff0000">URL некорректен</h3>
+    <p>Можете попробовать:<br/><a href="https://news.rambler.ru/world">news.rambler.ru/world</a>
+        <br/><a href="https://news.rambler.ru/rss/economics/">news.rambler.ru/rss/economics</a>
+    <br/><a href="https://lenta.ru/rss/news">https://lenta.ru/rss/news</a>
+    <br/><a href="https://ura.news/">https://ura.news/</a>
+    <br/><a href="https://news.mail.ru/">https://news.mail.ru/</a></p>
+</div>
+<h3 th:if="${addingResult} == 'this site already added'" style="color:#ff0000">Такой сайт уже есть в вашем наборе</h3>
+<h3 th:if="${deletingResult} == 'deleted'" style="color: #00ff12">Сайт был успешно удален из вашего списка</h3>
+<form method="post" th:action="@{/add}" th:object="${newsSite}">
+    <h4>Адрес нового сайта: </h4>
+    <input placeholder="https://news.rambler.ru/rss/world/" id="url"
+           size="40" th:field="*{url}" type="text"/><br/>
+    <label>
+        <h4>Нужны ли следующие параметры новостей из этого источника: </h4>
+        <p>Ссылка на новость <input id="link" th:field="*{link}" type="checkbox"/></p>
+        <p>Автор <input id="author" th:field="*{author}" type="checkbox"/></p>
+    </label>
+    <input type="submit" value="Добавить сайт"/>
+</form>
+<br/><br/>
+<a href="/newsSites">Текущие источники новостей</a>
+<a href="/myNews">Новости на текущий момент</a>
+</body>
+</html>
